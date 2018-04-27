@@ -60,7 +60,7 @@ parseLocalTime :: B.ByteString -> Either String LocalTime
 parseLocalTime = A.parseOnly (getLocalTime <* A.endOfInput)
 
 parseDay :: B.ByteString -> Either String Day
-parseDay = A.parseOnly (getDay <* A.endOfInput)
+parseDay = A.parseOnly (getDay <* (A.endOfInput <|> (A.string " 00:00:00" *> A.endOfInput)))
 
 parseTimeOfDay :: B.ByteString -> Either String TimeOfDay
 parseTimeOfDay = A.parseOnly (getTimeOfDay <* A.endOfInput)
